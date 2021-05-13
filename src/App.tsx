@@ -1,14 +1,17 @@
 import React from 'react';
-import { Counter } from './features/counter/Counter';
-import { GlobalStyles } from './styles/styles';
+import { GlobalStyles } from './styles/globalStyles';
 import { WholeAppLayout } from './layouts/WholeAppLayout/WholeAppLayout';
+import Routing from './routing/Routing';
+import { BrowserRouter } from 'react-router-dom';
 
 export const App: React.FunctionComponent = () => {
   return (
-    <WholeAppLayout>
-      <GlobalStyles />
-      <Counter />
-    </WholeAppLayout>
+    <BrowserRouter>
+      <WholeAppLayout>
+        <GlobalStyles />
+        <Routing />
+      </WholeAppLayout>
+    </BrowserRouter>
   );
 };
 

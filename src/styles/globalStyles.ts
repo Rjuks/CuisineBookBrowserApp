@@ -11,20 +11,20 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body { 
-    font-family: 'Mulish', sans-serif;
+font-family: 'Quicksand', sans-serif;
     width: 100vw;
-    height: 100vh;
+    height: 100vh; 
     margin: 0;
     padding: 0;
     border: 0;
 
     input, textarea {
-      font-family: 'Mulish', sans-serif;
+font-family: 'Quicksand', sans-serif;
     }
   } 
   
   p, span, ul, li {
     margin: 0;
     padding: 0;
-}
+} 
 `;
