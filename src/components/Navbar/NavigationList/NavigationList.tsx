@@ -12,10 +12,12 @@ interface Data {
   navigationData: NavigationListProps[];
 }
 
-export const NavigationList = ({ navigationData }: Data): any => {
+export const NavigationList: React.FunctionComponent<Data> = ({
+  navigationData
+}: Data) => {
   return (
     <StyledNavigationList>
-      {navigationData.map((navigation: any) => (
+      {navigationData.map((navigation: NavigationListProps) => (
         <Link to={navigation.to} key={`navItem_${navigation.name}`}>
           <li>{navigation.name}</li>
         </Link>
@@ -37,6 +39,13 @@ export const StyledNavigationList = styled.ul`
 
   li {
     padding: 1rem 1rem;
-    background-color: white;
+    color: white;
+    background-color: ${THEME_COLORS.SECONDARY};
+    transition: all 0.5s ease;
+
+    &:hover {
+      color: ${THEME_COLORS.SECONDARY};
+      background-color: white;
+    }
   }
 `;

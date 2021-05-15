@@ -2,7 +2,7 @@ export type ThemedColor = keyof typeof THEME_COLORS;
 
 export const THEME_COLORS = {
   PRIMARY: '#00bfff',
-  SECONDARY: '#0080ff',
+  SECONDARY: '#00b5ee',
   TERTIARY: '#0040ff',
   GREY1: '#292929',
   GREY2: '#161616'
