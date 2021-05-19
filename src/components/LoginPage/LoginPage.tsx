@@ -7,6 +7,8 @@ import { SignUp } from './SignUp/SignUp';
 import { RecoverPassword } from './RecoverPassword/RecoverPassword';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectUserIsLoggedIn } from '../../store/features/user/userSlice';
+import { UserCredentials } from '../../store/features/user/userTypes';
+import { signInUser, signUpUser } from '../../store/features/user/userAsync';
 
 interface LocationState {
   from: {
@@ -17,38 +19,36 @@ interface LocationState {
 export const LoginPage = (): ReactElement => {
   const [formType, setFormType] =
     useState<'SIGNIN' | 'SIGNUP' | 'RECOVER_PASSWORD'>('SIGNIN');
+
   const dispatch = useAppDispatch();
   const isUserLoggedIn = useAppSelector(selectUserIsLoggedIn);
   const location = useLocation<LocationState>();
 
-  // const signIn = useCallback(
-  //   (credentials: UserCredentials) => {
-  //     dispatch(signInUser(credentials));
-  //   },
-  //   [dispatch]
-  // );
+  const signIn = useCallback(
+    (credentials: UserCredentials) => {
+      dispatch(signInUser(credentials));
+    },
+    [dispatch]
+  );
   //
   // const recoverPassword = useCallback(
   //   (email: string) => dispatch(postRecoveryPasswordEmail(email)),
   //   [dispatch]
   // );
   //
-  // const signUp = useCallback(
-  //   (credentials: UserCredentials) => {
-  //     dispatch(signUpUser(credentials));
-  //   },
-  //   [dispatch]
-  // );
+  const signUp = useCallback(
+    (credentials: UserCredentials) => {
+      dispatch(signUpUser(credentials));
+    },
+    [dispatch]
+  );
 
   return (
     <StyledLoginPage>
       {!isUserLoggedIn ? (
         <StyledLoginPage>
           {formType === 'SIGNIN' && (
-            <SignIn
-              onSubmitHandler={() => alert('xd')}
-              changeFormHandler={setFormType}
-            />
+            <SignIn onSubmitHandler={signIn} changeFormHandler={setFormType} />
           )}
           {formType === 'RECOVER_PASSWORD' && (
             <RecoverPassword
@@ -57,10 +57,7 @@ export const LoginPage = (): ReactElement => {
             />
           )}
           {formType === 'SIGNUP' && (
-            <SignUp
-              onSubmitHandler={() => alert('xd')}
-              changeFormHandler={setFormType}
-            />
+            <SignUp onSubmitHandler={signUp} changeFormHandler={setFormType} />
           )}
         </StyledLoginPage>
       ) : (

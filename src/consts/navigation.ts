@@ -1,5 +1,5 @@
 export const navMock = [
-  { to: '/login', name: 'Recipes' },
-  { to: '/register', name: 'Somewhere' },
-  { to: '/', name: 'Homepage' }
+  { to: '/', name: 'Homepage' },
+  { to: '/new-recipes', name: 'Przepisy' },
+  { to: '/calorie-calculator', name: 'Kalkulator' }
 ];

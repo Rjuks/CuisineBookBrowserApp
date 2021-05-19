@@ -2,16 +2,19 @@ import React from 'react';
 import { GlobalStyles } from './styles/globalStyles';
 import { WholeAppLayout } from './layouts/WholeAppLayout/WholeAppLayout';
 import Routing from './routing/Routing';
-import { BrowserRouter } from 'react-router-dom';
+import { AppContext } from './service/AppContext';
+import { NotificationContext } from './service/NotificationContext';
 
 export const App: React.FunctionComponent = () => {
   return (
-    <BrowserRouter>
-      <WholeAppLayout>
-        <GlobalStyles />
-        <Routing />
-      </WholeAppLayout>
-    </BrowserRouter>
+    <AppContext>
+      <NotificationContext>
+        <WholeAppLayout>
+          <GlobalStyles />
+          <Routing />
+        </WholeAppLayout>
+      </NotificationContext>
+    </AppContext>
   );
 };
 

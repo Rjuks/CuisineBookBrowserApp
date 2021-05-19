@@ -7,6 +7,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import { TextField } from '../../shared/TextField/TextField';
 import { Text } from '../../shared/Text/Text';
+import { THEME_COLORS } from '../../../styles/themeStyles';
+import { Button } from '../../shared/Button/Button';
+import PersonIcon from '@material-ui/icons/Person';
 
 interface FormTypeProps {
   changeFormHandler: React.Dispatch<
@@ -20,13 +23,11 @@ export const SignUp: React.FunctionComponent<FormTypeProps> = ({
   onSubmitHandler
 }: FormTypeProps): ReactElement => {
   const validateFormValues = Yup.object({
-    email: Yup.string().email('Email is invalid').required('Email is required'),
-    password: Yup.string()
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,30}$/,
-        'Must contain 8 characters. One uppercase, one lowercase, one number and one special case character'
-      )
-      .required('Password is required')
+    email: Yup.string()
+      .email('Email jest niepoprawny')
+      .required('Email jest wymagany!'),
+    password: Yup.string().required('Hasło jest wymagane!'),
+    username: Yup.string().required('Nazwa użytkownika jest wymagana!')
   });
 
   return (
@@ -35,13 +36,16 @@ export const SignUp: React.FunctionComponent<FormTypeProps> = ({
         as="h1"
         color="GREY2"
         textAlign="center"
-        fontSize="TEXT_DEFAULT"
+        fontSize="TEXT_BIG"
         fontWeight={700}
-      />
+      >
+        Rejestracja
+      </Text>
       <Formik
         initialValues={{
-          email: '',
-          password: ''
+          username: '',
+          password: '',
+          email: ''
         }}
         validationSchema={validateFormValues}
         onSubmit={(values) => {
@@ -57,11 +61,24 @@ export const SignUp: React.FunctionComponent<FormTypeProps> = ({
                   fontWeight: 700,
                   color: 'GREY1'
                 }}
+                name="username"
+                type="text"
+                icon={<PersonIcon />}
+                placeholder="Nazwa użytkownika"
+              />
+
+              <TextField
+                labelProps={{
+                  fontSize: 'TEXT_DEFAULT',
+                  fontWeight: 700,
+                  color: 'GREY1'
+                }}
                 name="email"
                 type="text"
                 icon={<EmailIcon />}
                 placeholder="name@email.com"
               />
+
               <TextField
                 labelProps={{
                   fontSize: 'TEXT_DEFAULT',
@@ -71,23 +88,26 @@ export const SignUp: React.FunctionComponent<FormTypeProps> = ({
                 name="password"
                 type="password"
                 icon={<CheckCircleIcon />}
-                placeholder="password"
+                placeholder="Hasło"
               />
-              {/*<Button type="submit">{t('buttons.signUpUser')}</Button>*/}
-              <p>button</p>
+              <Button type="submit">Zarejestruj się</Button>
             </Form>
           </StyledForm>
         )}
       </Formik>
       <div className="additional-container">
-        <Text as="span" fontSize="TEXT_DEFAULT" />
+        <Text as="span" fontSize="TEXT_DEFAULT">
+          Masz już konto?
+        </Text>
         <Text
           className="cta-button"
           onClick={() => changeFormHandler('SIGNIN')}
           as="span"
           fontSize="TEXT_DEFAULT"
           fontWeight={700}
-        />
+        >
+          Zaloguj się
+        </Text>
       </div>
     </StyledFormContainer>
   );
@@ -96,7 +116,7 @@ export const SignUp: React.FunctionComponent<FormTypeProps> = ({
 const StyledFormContainer = styled.div`
   display: block;
   padding: 20px;
-  background-color: red;
+  background-color: ${THEME_COLORS.PRIMARY};
 
   .additional-container {
     display: flex;
@@ -104,7 +124,7 @@ const StyledFormContainer = styled.div`
     align-items: center;
 
     .cta-button {
-      margin-left: 10px;
+      margin-left: 5px;
       cursor: pointer;
     }
   }
@@ -113,7 +133,7 @@ const StyledFormContainer = styled.div`
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: red;
+  background-color: ${THEME_COLORS.PRIMARY};
 
   button {
     margin: 25px auto 20px auto;

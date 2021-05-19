@@ -1,34 +1,22 @@
-import React, { ReactElement } from 'react';
-import { Formik, Form } from 'formik';
-import styled from 'styled-components';
-import * as Yup from 'yup';
-
-import { TextField } from '../../shared/TextField/TextField';
+import React from 'react';
 import { Text } from '../../shared/Text/Text';
-
+import { Form, Formik } from 'formik';
+import { TextField } from '../../shared/TextField/TextField';
 import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Button } from '../../shared/Button/Button';
+import * as Yup from 'yup';
+import styled from 'styled-components';
 import { THEME_COLORS } from '../../../styles/themeStyles';
 
-interface FormTypeProps {
-  changeFormHandler: React.Dispatch<
-    React.SetStateAction<'SIGNIN' | 'SIGNUP' | 'RECOVER_PASSWORD'>
-  >;
-  onSubmitHandler: (credentials: any) => void;
-}
-
-export const SignIn: React.FunctionComponent<FormTypeProps> = ({
-  changeFormHandler,
-  onSubmitHandler
-}: FormTypeProps): ReactElement => {
+export const NewRecipeForm = () => {
   const validateFormValues = Yup.object({
     username: Yup.string().required('Nazwa użytkownika jest wymagana!'),
     password: Yup.string().required('Hasło jest wymagane!')
   });
-
   return (
     <StyledFormContainer>
+      <p>dwadwa</p>
       <Text
         as="h1"
         color="GREY2"
@@ -46,7 +34,7 @@ export const SignIn: React.FunctionComponent<FormTypeProps> = ({
         }}
         validationSchema={validateFormValues}
         onSubmit={(values) => {
-          onSubmitHandler(values);
+          // onSubmitHandler(values);
         }}
       >
         {() => (
@@ -94,28 +82,39 @@ export const SignIn: React.FunctionComponent<FormTypeProps> = ({
           </StyledForm>
         )}
       </Formik>
-      <div className="additional-container">
-        <Text as="p" fontSize="TEXT_DEFAULT">
-          Nie masz konta?
-        </Text>
-
-        <Text
-          className="cta-button"
-          onClick={() => changeFormHandler('SIGNUP')}
-          as="span"
-          fontSize="TEXT_DEFAULT"
-          fontWeight={700}
-        >
-          Zarejestruj się.
-        </Text>
-      </div>
     </StyledFormContainer>
   );
 };
 
+{
+  /*<p>title</p>*/
+}
+{
+  /*<p>ingredients</p>*/
+}
+{
+  /*<p>imagelink</p>*/
+}
+{
+  /*<p>difficulty</p>*/
+}
+{
+  /*<p>preparationTime</p>*/
+}
+{
+  /*<p>calorificValue</p>*/
+}
+{
+  /*<p>preparingMethod</p>*/
+}
+{
+  /*<p>cathegory</p>*/
+}
+
 const StyledFormContainer = styled.div`
   display: block;
   padding: 20px;
+  max-width: 500px;
   background-color: ${THEME_COLORS.PRIMARY};
   border-radius: 0 0 20px 20px;
 
