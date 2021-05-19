@@ -3,6 +3,7 @@ import { ErrorMessage, FieldConfig, FieldProps, useField } from 'formik';
 import styled from 'styled-components';
 
 import { Text, TextProps } from '../../shared/Text/Text';
+import { THEME_COLORS } from '../../../styles/themeStyles';
 
 interface Props {
   labelProps: TextProps;
@@ -53,6 +54,7 @@ const StyledTextFieldWrapper = styled.div`
 
   .errorMessage {
     color: red;
+    font-weight: bold;
     font-size: 0.8rem;
   }
 `;
@@ -62,7 +64,7 @@ const StyledInputWrapper = styled.div`
 
   input {
     width: 100%;
-    border: 1px solid red;
+    border: 1px solid ${THEME_COLORS.SECONDARY};
     border-radius: 8px;
     margin: 8px 0;
     outline: none;
@@ -78,6 +80,6 @@ const StyledInputWrapper = styled.div`
     top: 7px;
     font-size: 21px;
     padding: 9px 8px;
-    color: red;
+    color: ${THEME_COLORS.SECONDARY};
   }
 `;

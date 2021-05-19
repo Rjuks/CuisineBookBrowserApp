@@ -1,26 +1,37 @@
-import React, { useCallback } from 'react';
-import { Button } from '@material-ui/core';
-import { useAppDispatch } from '../../store/hooks';
-import { signInUser } from '../../store/features/user/userAsync/userAsync';
+import React, { useEffect } from 'react';
 
-export const Homepage = () => {
+import { useAppDispatch } from '../../store/hooks';
+import { RecipesList } from '../Recipes/RecipesList/RecipesList';
+import { recipesCategories } from '../../consts/recipes';
+import { Text } from '../shared/Text/Text';
+import { getAllRecipes } from '../../store/features/recipe/recipeAsync';
+import { getCookie } from '../../service/cookieService';
+import { NewRecipeForm } from '../Recipes/NewRecipeForm/NewRecipeForm';
+
+export const Homepage: React.FunctionComponent = () => {
   const dispatch = useAppDispatch();
 
-  const signIn = useCallback(
-    (credentials: any) => {
-      dispatch(signInUser(credentials));
-    },
-    [dispatch]
-  );
-  const dane = {
-    username: 'testAdmin',
-    password: 'test'
-  };
+  useEffect(() => {
+    dispatch(getAllRecipes());
+  }, []);
+
+  console.log(getCookie('username'));
 
   return (
-    <div>
-      Strona główna
-      <Button onClick={() => signIn(dane)}>siema login</Button>
-    </div>
+    <>
+      <Text
+        className="recipe_container__text"
+        as="h1"
+        color="GREY2"
+        textAlign="center"
+        fontSize="HEADER_BIG"
+        fontWeight={700}
+      >
+        Wybierz kategorie dania
+      </Text>
+      <RecipesList recipes={recipesCategories} />
+
+      <NewRecipeForm />
+    </>
   );
 };

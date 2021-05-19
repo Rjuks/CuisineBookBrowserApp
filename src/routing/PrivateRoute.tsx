@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { useAppSelector } from '../store/hooks';
+import { selectUserIsLoggedIn } from '../store/features/user/userSlice';
 export interface PrivateRouteProps {
   children: React.ReactElement | React.ReactElement[];
   authenticated?: boolean;
@@ -11,8 +13,8 @@ const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({
   path,
   ...rest
 }: PrivateRouteProps): React.ReactElement | null => {
-  const authenticated = false;
-  if (authenticated) {
+  const isUserLoggedIn = useAppSelector(selectUserIsLoggedIn);
+  if (isUserLoggedIn) {
     return (
       <Route
         {...rest}
