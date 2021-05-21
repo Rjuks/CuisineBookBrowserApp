@@ -60,16 +60,15 @@ export const NewRecipeForm: React.FunctionComponent<NewRecipeFormProps> = ({
           title: '',
           ingredients: '',
           imageLink: '',
-          difficulty: '',
+          difficulty: 'latwy',
           preparationTime: '',
           calorificValue: 0,
           preparingMethod: '',
           cathegory: ''
         }}
         validationSchema={validateFormValues}
-        onSubmit={(values) => {
+        onSubmit={(values: Recipe) => {
           onSubmitHandler(values);
-          console.log(values, 'hm');
         }}
       >
         {() => (

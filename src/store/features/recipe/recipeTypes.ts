@@ -16,7 +16,7 @@ export interface Recipe {
   title: string;
   ingredients: string;
   imageLink: string;
-  difficulty: string;
+  difficulty: 'latwy' | 'sredni' | 'trudny';
   preparationTime?: string;
   calorificValue: number;
   preparingMethod?: string;
