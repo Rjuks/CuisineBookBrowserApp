@@ -6,11 +6,13 @@ import {
 } from '@reduxjs/toolkit';
 import counterReducer from './features/counter/counterSlice';
 import userSlice from './features/user/userSlice';
+import recipeSlice from './features/recipe/recipeSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    user: userSlice
+    user: userSlice,
+    recipe: recipeSlice
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false

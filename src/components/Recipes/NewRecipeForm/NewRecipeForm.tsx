@@ -1,22 +1,50 @@
 import React from 'react';
-import { Text } from '../../shared/Text/Text';
 import { Form, Formik } from 'formik';
-import { TextField } from '../../shared/TextField/TextField';
-import PersonIcon from '@material-ui/icons/Person';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { Button } from '../../shared/Button/Button';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { THEME_COLORS } from '../../../styles/themeStyles';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import TimerIcon from '@material-ui/icons/Timer';
+import ChildCareIcon from '@material-ui/icons/ChildCare';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import CategoryIcon from '@material-ui/icons/Category';
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
+import PhotoIcon from '@material-ui/icons/Photo';
 
-export const NewRecipeForm = () => {
+import { Text } from '../../shared/Text/Text';
+import { TextField } from '../../shared/Formik/TextField/TextField';
+import { Button } from '../../shared/Button/Button';
+import { THEME_COLORS } from '../../../styles/themeStyles';
+import { SelectInputFormik } from '../../shared/Formik/SelectInput/SelectInput';
+import {
+  recipesCategoriesOptions,
+  recipesDifficultyOptions,
+  recipesPreparationTimeOptions
+} from '../../../consts/recipes';
+import { TextArea } from '../../shared/Formik/TextArea/TextArea';
+import { Recipe } from '../../../store/features/recipe/recipeTypes';
+
+interface NewRecipeFormProps {
+  onSubmitHandler: (recipe: Recipe) => void;
+}
+
+export const NewRecipeForm: React.FunctionComponent<NewRecipeFormProps> = ({
+  onSubmitHandler
+}: NewRecipeFormProps) => {
   const validateFormValues = Yup.object({
-    username: Yup.string().required('Nazwa użytkownika jest wymagana!'),
-    password: Yup.string().required('Hasło jest wymagane!')
+    title: Yup.string().required('Podaj tytuł przepisu!'),
+    ingredients: Yup.string().required('Podaj składniki!'),
+    imageLink: Yup.string().required('Podaj ścieżkę!'),
+    difficulty: Yup.string().required('Podaj poziom trudności!'),
+    preparationTime: Yup.string().required('Podaj czas przygotowania!'),
+    calorificValue: Yup.number().required('Podaj ilość kalorii!'),
+    preparingMethod: Yup.string().required(
+      'Metoda przygotowania jest wymagana!'
+    ),
+    cathegory: Yup.string().required('Wybierz kategorie!')
   });
   return (
     <StyledFormContainer>
-      <p>dwadwa</p>
       <Text
         as="h1"
         color="GREY2"
@@ -24,17 +52,24 @@ export const NewRecipeForm = () => {
         fontSize="TEXT_BIG"
         fontWeight={700}
       >
-        Zaloguj się
+        Stwórz nowy przepis
       </Text>
 
       <Formik
         initialValues={{
-          username: '',
-          password: ''
+          title: '',
+          ingredients: '',
+          imageLink: '',
+          difficulty: '',
+          preparationTime: '',
+          calorificValue: 0,
+          preparingMethod: '',
+          cathegory: ''
         }}
         validationSchema={validateFormValues}
         onSubmit={(values) => {
-          // onSubmitHandler(values);
+          onSubmitHandler(values);
+          console.log(values, 'hm');
         }}
       >
         {() => (
@@ -46,10 +81,10 @@ export const NewRecipeForm = () => {
                   fontWeight: 700,
                   color: 'GREY2'
                 }}
-                name="username"
+                name="title"
                 type="text"
-                icon={<PersonIcon />}
-                placeholder="Nazwa użytkownika"
+                icon={<AssignmentIcon />}
+                placeholder="Tytuł przepisu"
               />
 
               <TextField
@@ -58,26 +93,65 @@ export const NewRecipeForm = () => {
                   fontWeight: 700,
                   color: 'GREY2'
                 }}
-                name="password"
-                type="password"
-                icon={<CheckCircleIcon />}
-                placeholder="Hasło"
+                name="ingredients"
+                type="text"
+                icon={<FastfoodIcon />}
+                placeholder="Składniki"
               />
 
-              {/*<div className="additional-container">*/}
-              {/*  <Text as="span" fontSize="TEXT_DEFAULT">*/}
-              {/*    Zapomniałeś hasła?*/}
-              {/*  </Text>*/}
-              {/*  <Text*/}
-              {/*    className="cta-button"*/}
-              {/*    onClick={() => changeFormHandler('RECOVER_PASSWORD')}*/}
-              {/*    as="span"*/}
-              {/*    fontSize="TEXT_DEFAULT"*/}
-              {/*  >*/}
-              {/*    Zresetuj hasło*/}
-              {/*  </Text>*/}
-              {/*</div>*/}
-              <Button type="submit">Zaloguj się</Button>
+              <TextField
+                labelProps={{
+                  fontSize: 'TEXT_DEFAULT',
+                  fontWeight: 700,
+                  color: 'GREY2'
+                }}
+                name="imageLink"
+                type="text"
+                icon={<PhotoIcon />}
+                placeholder="Link URL do zdjęcia"
+              />
+
+              <SelectInputFormik
+                name="difficulty"
+                icon={<ChildCareIcon />}
+                options={recipesDifficultyOptions}
+              />
+
+              <SelectInputFormik
+                name="preparationTime"
+                icon={<TimerIcon />}
+                options={recipesPreparationTimeOptions}
+              />
+
+              <TextField
+                labelProps={{
+                  fontSize: 'TEXT_DEFAULT',
+                  fontWeight: 700,
+                  color: 'GREY2'
+                }}
+                name="calorificValue"
+                type="number"
+                icon={<ChatBubbleIcon />}
+                placeholder="Kalorie"
+              />
+
+              <TextArea
+                labelProps={{
+                  fontSize: 'TEXT_DEFAULT',
+                  fontWeight: 700,
+                  color: 'GREY2'
+                }}
+                name="preparingMethod"
+                type="text"
+                icon={<LocalDiningIcon />}
+                placeholder="Sposób przygotowania"
+              />
+              <SelectInputFormik
+                name="cathegory"
+                icon={<CategoryIcon />}
+                options={recipesCategoriesOptions}
+              />
+              <Button type="submit">Dodaj przepis</Button>
             </Form>
           </StyledForm>
         )}
@@ -86,37 +160,11 @@ export const NewRecipeForm = () => {
   );
 };
 
-{
-  /*<p>title</p>*/
-}
-{
-  /*<p>ingredients</p>*/
-}
-{
-  /*<p>imagelink</p>*/
-}
-{
-  /*<p>difficulty</p>*/
-}
-{
-  /*<p>preparationTime</p>*/
-}
-{
-  /*<p>calorificValue</p>*/
-}
-{
-  /*<p>preparingMethod</p>*/
-}
-{
-  /*<p>cathegory</p>*/
-}
-
 const StyledFormContainer = styled.div`
   display: block;
   padding: 20px;
-  max-width: 500px;
-  background-color: ${THEME_COLORS.PRIMARY};
-  border-radius: 0 0 20px 20px;
+  background-color: ${THEME_COLORS.SECONDARY};
+  border-radius: 20px;
 
   .additional-container {
     display: flex;
@@ -133,7 +181,7 @@ const StyledFormContainer = styled.div`
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${THEME_COLORS.PRIMARY};
+  background-color: ${THEME_COLORS.SECONDARY};
 
   button {
     margin: 25px auto 20px auto;

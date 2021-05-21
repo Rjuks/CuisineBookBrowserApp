@@ -1,45 +1,50 @@
 import React from 'react';
-import { Text } from '../../shared/Text/Text';
-import { Recipe } from '../../../store/features/recipe/recipeTypes';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-// todo w kompopnentach zrob liste widoku dla admina i usera, a ten jeden komponent reusable
+import {
+  RecipesCategoriesProps,
+  RecipesCategoriesInterface
+} from '../../../store/features/recipe/recipeTypes';
+import { Text } from '../../shared/Text/Text';
 
-interface RecipesListProps {
-  recipes: Recipe[];
-}
-
-export const RecipesList: React.FunctionComponent<RecipesListProps> = ({
+export const RecipesCategoriesList = ({
   recipes
-}: RecipesListProps) => {
-  console.log(recipes, 'hm');
+}: RecipesCategoriesInterface) => {
   return (
-    <StyledRecipesList>
-      {recipes.map((recipe: Recipe) => (
-        <Link key={recipe.id} to={`/recipes/recipe/${recipe.id}`}>
-          <div className="recipe_container">
-            <div className="recipe_container__overlay">
-              <Text
-                className="recipe_container__text"
-                as="h2"
-                color="GREY2"
-                textAlign="center"
-                fontSize="HEADER_BIG"
-                fontWeight={700}
-              >
-                {recipe.title}
-              </Text>
+    <StyledRecipes>
+      {recipes.length > 0 ? (
+        recipes.map((recipe: RecipesCategoriesProps) => (
+          <Link key={recipe.recipeName} to={recipe.path}>
+            <div className="recipe_container">
+              <div className="recipe_container__overlay">
+                <Text
+                  className="recipe_container__text"
+                  as="h2"
+                  color="GREY2"
+                  textAlign="center"
+                  fontSize="HEADER_BIG"
+                  fontWeight={700}
+                >
+                  {recipe.recipeName}
+                </Text>
+              </div>
+              <img
+                src={recipe.photo.imgSrc}
+                title={recipe.photo.title}
+                alt={recipe.photo.alt}
+              />
             </div>
-            <img src={recipe.imageLink} alt={recipe.title} />
-          </div>
-        </Link>
-      ))}
-    </StyledRecipesList>
+          </Link>
+        ))
+      ) : (
+        <p>Błąd z kategoriami. Skontaktuj się z administratorem.</p>
+      )}
+    </StyledRecipes>
   );
 };
 
-const StyledRecipesList = styled.ul`
+const StyledRecipes = styled.section`
   max-width: 1600px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);

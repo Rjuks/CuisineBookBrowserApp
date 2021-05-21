@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { UserNotificationProps } from '../store/features/user/userTypes';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
-  finishUserNotification,
+  updateUserNotification,
   selectUserNotification
 } from '../store/features/user/userSlice';
 import { NotificationBar } from '../components/shared/NotificationBar/NotificationBar';
@@ -14,8 +14,15 @@ export const NotificationContext: React.FunctionComponent = ({ children }) => {
   useEffect(() => {
     if (userNotification.show) {
       const timer = setTimeout((): void => {
-        dispatch(finishUserNotification(false));
-      }, 4000);
+        dispatch(
+          updateUserNotification({
+            show: false,
+            message: '',
+            title: '',
+            type: 'info'
+          })
+        );
+      }, 3900);
 
       return (): void => clearTimeout(timer);
     }

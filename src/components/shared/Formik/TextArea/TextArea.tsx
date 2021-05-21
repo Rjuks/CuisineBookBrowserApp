@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { ErrorMessage, FieldConfig, FieldProps, useField } from 'formik';
 import styled from 'styled-components';
 
-import { Text, TextProps } from '../../shared/Text/Text';
-import { THEME_COLORS } from '../../../styles/themeStyles';
+import { Text, TextProps } from '../../Text/Text';
+import { THEME_COLORS } from '../../../../styles/themeStyles';
 
 interface Props {
   labelProps: TextProps;
@@ -11,7 +11,7 @@ interface Props {
   placeholder?: string;
 }
 
-export const TextField = ({
+export const TextArea = ({
   labelProps,
   icon,
   placeholder,
@@ -22,14 +22,14 @@ export const TextField = ({
   const getIcon = icon ? icon : null;
 
   return (
-    <StyledTextFieldWrapper>
+    <StyledTextAreaWrapper>
       <label htmlFor={field.name}>
         <Text as="p" {...labelProps} />
       </label>
       <StyledInputWrapper>
         {getIcon}
-        <input
-          autoComplete="true"
+        <textarea
+          autoComplete="false"
           placeholder={placeholder}
           {...field}
           {...props}
@@ -40,11 +40,11 @@ export const TextField = ({
         name={field.name}
         className="errorMessage"
       />
-    </StyledTextFieldWrapper>
+    </StyledTextAreaWrapper>
   );
 };
 
-const StyledTextFieldWrapper = styled.div`
+const StyledTextAreaWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -62,7 +62,7 @@ const StyledInputWrapper = styled.div`
   position: relative;
   width: 100%;
 
-  input {
+  textarea {
     width: 100%;
     border: 1px solid ${THEME_COLORS.SECONDARY};
     border-radius: 8px;

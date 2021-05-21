@@ -17,8 +17,8 @@ const userSlice = createSlice({
   name: 'User',
   initialState: INITIAL_STATE,
   reducers: {
-    finishUserNotification: (state, action) => {
-      state.userNotification.show = action.payload;
+    updateUserNotification: (state, action) => {
+      state.userNotification = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -61,7 +61,7 @@ const userSlice = createSlice({
   }
 });
 
-export const { finishUserNotification } = userSlice.actions;
+export const { updateUserNotification } = userSlice.actions;
 
 export const selectUserIsLoggedIn = (state: RootState): boolean =>
   state.user.isLoggedIn;

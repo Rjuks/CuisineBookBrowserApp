@@ -4,7 +4,7 @@ import { Form, Formik } from 'formik';
 import styled from 'styled-components';
 
 import { Text } from '../../shared/Text/Text';
-import { TextField } from '../../shared/TextField/TextField';
+import { TextField } from '../../shared/Formik/TextField/TextField';
 const StyledFormContainer = styled.div`
   display: block;
   padding: 20px;

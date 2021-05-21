@@ -18,7 +18,7 @@ font-family: 'Quicksand', sans-serif;
     padding: 0;
     border: 0;
 
-    input, textarea {
+    input, textarea, select {
 font-family: 'Quicksand', sans-serif;
     }
   } 
