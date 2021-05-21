@@ -61,26 +61,32 @@ export const recipesCategories: RecipesCategoriesProps[] = [
 
 export const recipesCategoriesOptions: DropdownOption[] = [
   { label: 'Kategoria dania', value: '' },
-  { label: 'Obiad', value: 'dinner' },
-  { label: 'Deser', value: 'dessert' },
-  { label: 'Śniadanie', value: 'breakfast' },
-  { label: 'Orientalne', value: 'oriental' },
-  { label: 'Zupa', value: 'soup' }
+  { label: 'Obiad', value: 'Obiad' },
+  { label: 'Deser', value: 'Deser' },
+  { label: 'Śniadanie', value: 'Śniadanie' },
+  { label: 'Orientalne', value: 'Orientalne' },
+  { label: 'Zupa', value: 'Zupa' }
 ];
 
 export const recipesPreparationTimeOptions: DropdownOption[] = [
   { label: 'Czas przygotowania', value: '' },
-  { label: '15 minut', value: '15min' },
-  { label: '30 minut', value: '30min' },
-  { label: '45 minut', value: '45min' },
-  { label: '60 minut', value: '60min' },
-  { label: '90 minut', value: '90min' },
-  { label: 'Ponad 90 minut', value: 'over90min' }
+  { label: '15 minut', value: '15 minut' },
+  { label: '30 minut', value: '30 minut' },
+  { label: '45 minut', value: '45 minut' },
+  { label: '60 minut', value: '60 minut' },
+  { label: '90 minut', value: '90 minut' },
+  { label: 'Ponad 90 minut', value: 'Ponad 90 minut' }
 ];
 
 export const recipesDifficultyOptions: DropdownOption[] = [
   { label: 'Poziom trudności', value: '' },
-  { label: 'Łatwy', value: 'easy' },
-  { label: 'Średni', value: 'medium' },
-  { label: 'Trudny', value: 'hard' }
+  { label: 'Łatwy', value: 'Łatwy' },
+  { label: 'Średni', value: 'Średni' },
+  { label: 'Trudny', value: 'Trudny' }
 ];
+
+export enum difficultyStars {
+  latwy = 1,
+  sredni,
+  trudny
+}

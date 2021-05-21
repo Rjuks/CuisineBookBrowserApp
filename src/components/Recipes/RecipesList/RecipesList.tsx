@@ -3,6 +3,10 @@ import { Text } from '../../shared/Text/Text';
 import { Recipe } from '../../../store/features/recipe/recipeTypes';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { showProperNumberOfStars } from '../utils';
+import { THEME_COLORS } from '../../../styles/themeStyles';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 
 // todo w kompopnentach zrob liste widoku dla admina i usera, a ten jeden komponent reusable
 
@@ -13,25 +17,63 @@ interface RecipesListProps {
 export const RecipesList: React.FunctionComponent<RecipesListProps> = ({
   recipes
 }: RecipesListProps) => {
-  console.log(recipes, 'hm');
   return (
     <StyledRecipesList>
       {recipes.map((recipe: Recipe) => (
         <Link key={recipe.id} to={`/recipes/recipe/${recipe.id}`}>
           <div className="recipe_container">
-            <div className="recipe_container__overlay">
-              <Text
-                className="recipe_container__text"
-                as="h2"
-                color="GREY2"
-                textAlign="center"
-                fontSize="HEADER_BIG"
-                fontWeight={700}
-              >
-                {recipe.title}
-              </Text>
-            </div>
             <img src={recipe.imageLink} alt={recipe.title} />
+
+            <Text
+              as="h3"
+              color="GREY2"
+              textAlign="left"
+              fontSize="HEADER_SMALL"
+              fontWeight={700}
+            >
+              {recipe.title}
+            </Text>
+
+            <div className="recipe_container__informations">
+              <div className="informations_difficulty">
+                {showProperNumberOfStars(recipe.difficulty)}
+                <Text
+                  as="p"
+                  color="GREY2"
+                  textAlign="left"
+                  fontSize="TEXT_DEFAULT"
+                  fontWeight={700}
+                >
+                  {recipe.difficulty}
+                </Text>
+              </div>
+
+              <div className="informations_calorie">
+                <WhatshotIcon />
+                <Text
+                  as="p"
+                  color="GREY2"
+                  textAlign="left"
+                  fontSize="TEXT_DEFAULT"
+                  fontWeight={700}
+                >
+                  {recipe.calorificValue} kcal
+                </Text>
+              </div>
+
+              <div className="informations_preparationTime">
+                <AccessAlarmIcon />
+                <Text
+                  as="p"
+                  color="GREY2"
+                  textAlign="left"
+                  fontSize="TEXT_DEFAULT"
+                  fontWeight={700}
+                >
+                  {recipe.preparationTime}
+                </Text>
+              </div>
+            </div>
           </div>
         </Link>
       ))}
@@ -41,61 +83,64 @@ export const RecipesList: React.FunctionComponent<RecipesListProps> = ({
 
 const StyledRecipesList = styled.ul`
   max-width: 1600px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  height: 100%;
+  display: flex;
   margin: 0 auto;
+  padding: 10px;
   align-items: center;
   justify-items: center;
 
-  .recipe_container {
-    width: 280px;
-    height: 160px;
-    display: block;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-      0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  a {
+    text-decoration: none;
+  }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+  .recipe_container {
+    min-width: 350px;
+    min-height: 190px;
+    padding: 10px;
+    margin: 0 20px;
+    display: block;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      transition: all 0.3s;
     }
 
-    .recipe_container__overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-image: radial-gradient(
-        80% 30% at center,
-        rgba(0, 0, 0, 0.5) 30%,
-        rgba(255, 255, 255, 0)
-      );
-      cursor: pointer;
-      transition: all 0.7s;
+    h3 {
+      margin: 10px 0 15px 0;
+    }
+
+    img {
+      width: 350px;
+      height: 190px;
+      object-fit: cover;
+      transition: all 0.3s;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.3);
-        transition: all 0.7s;
+        opacity: 0.8;
+        transition: all 0.3s;
       }
     }
 
-    .recipe_container__text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      transform: translate(-50%, -50%);
-      text-shadow: 0 0 25px #000;
-      font-style: normal;
-      font-stretch: normal;
-      letter-spacing: 0.4px;
-      text-align: center;
-      color: #fff;
-      text-transform: uppercase;
+    .recipe_container__informations {
+      display: flex;
+      justify-content: space-between;
+      .informations_difficulty,
+      .informations_calorie,
+      .informations_preparationTime {
+        display: block;
+        text-align: center;
+
+        p {
+          text-align: center;
+        }
+
+        svg {
+          color: ${THEME_COLORS.TERTIARY};
+        }
+      }
     }
   }
 `;
