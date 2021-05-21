@@ -1,17 +1,18 @@
 import { PhotoProps } from '../../../types/commonTypes';
 
-export interface RecipesListProps {
+export interface RecipesCategoriesProps {
   recipeName: string;
   photo: PhotoProps;
   recipeCategory: string;
   path: string;
 }
 
-export interface RecipesListInterface {
-  recipes: RecipesListProps[];
+export interface RecipesCategoriesInterface {
+  recipes: RecipesCategoriesProps[];
 }
 
 export interface Recipe {
+  id?: number;
   title: string;
   ingredients: string;
   imageLink: string;
@@ -24,4 +25,5 @@ export interface Recipe {
 
 export interface RecipeStoreState {
   allRecipes: Recipe[];
+  allAcceptedRecipes: Recipe[];
 }

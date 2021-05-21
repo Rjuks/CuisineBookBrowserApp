@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 
 // import { passwordRegExp } from '../../../services/validators/validators';
 import { Text } from '../../shared/Text/Text';
-import { TextField } from '../../shared/TextField/TextField';
+import { TextField } from '../../shared/Formik/TextField/TextField';
 
 // @todo: If comment is needed please translate to english, if not please remove
 // ma przeniesc do strny z jednym inputem

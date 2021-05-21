@@ -3,19 +3,20 @@ import { Formik, Form } from 'formik';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
-import { TextField } from '../../shared/TextField/TextField';
+import { TextField } from '../../shared/Formik/TextField/TextField';
 import { Text } from '../../shared/Text/Text';
 
 import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Button } from '../../shared/Button/Button';
 import { THEME_COLORS } from '../../../styles/themeStyles';
+import { UserCredentials } from '../../../store/features/user/userTypes';
 
 interface FormTypeProps {
   changeFormHandler: React.Dispatch<
     React.SetStateAction<'SIGNIN' | 'SIGNUP' | 'RECOVER_PASSWORD'>
   >;
-  onSubmitHandler: (credentials: any) => void;
+  onSubmitHandler: (credentials: UserCredentials) => void;
 }
 
 export const SignIn: React.FunctionComponent<FormTypeProps> = ({

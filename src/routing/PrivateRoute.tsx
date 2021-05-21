@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
-import { selectUserIsLoggedIn } from '../store/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import {
+  updateUserNotification,
+  selectUserIsLoggedIn,
+  selectUserNotification
+} from '../store/features/user/userSlice';
 export interface PrivateRouteProps {
   children: React.ReactElement | React.ReactElement[];
   authenticated?: boolean;
@@ -14,6 +18,21 @@ const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({
   ...rest
 }: PrivateRouteProps): React.ReactElement | null => {
   const isUserLoggedIn = useAppSelector(selectUserIsLoggedIn);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      dispatch(
+        updateUserNotification({
+          show: true,
+          message: 'Żeby wyświetlić tę sekcję musisz się zalogować!',
+          title: 'Brak dostępu',
+          type: 'info'
+        })
+      );
+    }
+  }, []);
+
   if (isUserLoggedIn) {
     return (
       <Route

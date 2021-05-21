@@ -2,11 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { THEME_COLORS } from '../../../styles/themeStyles';
-
-interface NavigationListProps {
-  to: string;
-  name: string;
-}
+import { NavigationListProps } from '../../../types/navigation';
 
 interface Data {
   navigationData: NavigationListProps[];
@@ -18,7 +14,7 @@ export const NavigationList: React.FunctionComponent<Data> = ({
   return (
     <StyledNavigationList>
       {navigationData.map((navigation: NavigationListProps) => (
-        <Link to={navigation.to} key={`navItem_${navigation.name}`}>
+        <Link to={navigation.path} key={`navItem_${navigation.name}`}>
           <li>{navigation.name}</li>
         </Link>
       ))}
@@ -32,8 +28,6 @@ export const StyledNavigationList = styled.ul`
   background-color: ${THEME_COLORS.PRIMARY};
 
   a {
-    width: 100%;
-    height: 100%;
     text-decoration: none;
   }
 

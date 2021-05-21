@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import EmailIcon from '@material-ui/icons/Email';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-import { TextField } from '../../shared/TextField/TextField';
+import { TextField } from '../../shared/Formik/TextField/TextField';
 import { Text } from '../../shared/Text/Text';
 import { THEME_COLORS } from '../../../styles/themeStyles';
 import { Button } from '../../shared/Button/Button';
