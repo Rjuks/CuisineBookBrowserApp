@@ -1,10 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { signInUserAPI, signUpUserAPI } from '../../../service/userAPI';
-import axios from 'axios';
 import { UserCredentials } from './userTypes';
 import { setCookie } from '../../../service/cookieService';
 
-// todo keep session by cookie
 export const signInUser = createAsyncThunk(
   'User/signInUser',
   async (credentials: UserCredentials, thunkAPI) => {
@@ -12,16 +10,8 @@ export const signInUser = createAsyncThunk(
 
     const accessToken = signInUser.data.token;
     if (accessToken) {
-      const setAuthToken = axios.interceptors.request.use((req) => {
-        req.headers.authorization = `Bearer ${accessToken}`;
-
-        setCookie('user', accessToken, 1);
-
-        return req;
-      }) as number;
-      return setAuthToken;
+      setCookie('user', accessToken, signInUser.data.expiration);
     }
-
     return signInUser;
   }
 );

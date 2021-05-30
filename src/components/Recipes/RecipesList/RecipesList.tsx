@@ -7,23 +7,48 @@ import { showProperNumberOfStars } from '../utils';
 import { THEME_COLORS } from '../../../styles/themeStyles';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 // todo w kompopnentach zrob liste widoku dla admina i usera, a ten jeden komponent reusable
 
 interface RecipesListProps {
   recipes: Recipe[];
+  isAdmin: boolean;
+  onDeclineRecipeHandler?: (recipeID: string) => void;
+  onAcceptRecipeHandler?: (recipe: Recipe) => void;
 }
 
 export const RecipesList: React.FunctionComponent<RecipesListProps> = ({
-  recipes
+  recipes,
+  isAdmin,
+  onAcceptRecipeHandler,
+  onDeclineRecipeHandler
 }: RecipesListProps) => {
   return (
     <StyledRecipesList>
       {recipes.map((recipe: Recipe) => (
-        <Link key={recipe.id} to={`/recipes/recipe/${recipe.id}`}>
-          <div className="recipe_container">
+        <li className="recipe_container" key={recipe.id}>
+          <Link to={`/recipes/recipe/${recipe.id}`}>
             <img src={recipe.imageLink} alt={recipe.title} />
+          </Link>
+          {isAdmin && (
+            <StyledActionsContainer>
+              <CheckCircleIcon
+                onClick={() =>
+                  onAcceptRecipeHandler && onAcceptRecipeHandler(recipe)
+                }
+              />
+              <CancelIcon
+                onClick={() =>
+                  onDeclineRecipeHandler &&
+                  onDeclineRecipeHandler(recipe.id as string)
+                }
+              />
+            </StyledActionsContainer>
+          )}
 
+          <Link to={`/recipes/recipe/${recipe.id}`}>
             <Text
               as="h3"
               color="GREY2"
@@ -33,62 +58,67 @@ export const RecipesList: React.FunctionComponent<RecipesListProps> = ({
             >
               {recipe.title}
             </Text>
+          </Link>
 
-            <div className="recipe_container__informations">
-              <div className="informations_difficulty">
-                {showProperNumberOfStars(recipe.difficulty)}
-                <Text
-                  as="p"
-                  color="GREY2"
-                  textAlign="left"
-                  fontSize="TEXT_DEFAULT"
-                  fontWeight={700}
-                >
-                  {recipe.difficulty}
-                </Text>
-              </div>
+          <div className="recipe_container__informations">
+            <div className="informations_difficulty">
+              {showProperNumberOfStars(recipe.difficulty)}
+              <Text
+                as="p"
+                color="GREY2"
+                textAlign="left"
+                fontSize="TEXT_DEFAULT"
+                fontWeight={700}
+              >
+                {recipe.difficulty}
+              </Text>
+            </div>
 
-              <div className="informations_calorie">
-                <WhatshotIcon />
-                <Text
-                  as="p"
-                  color="GREY2"
-                  textAlign="left"
-                  fontSize="TEXT_DEFAULT"
-                  fontWeight={700}
-                >
-                  {recipe.calorificValue} kcal
-                </Text>
-              </div>
+            <div className="informations_calorie">
+              <WhatshotIcon />
+              <Text
+                as="p"
+                color="GREY2"
+                textAlign="left"
+                fontSize="TEXT_DEFAULT"
+                fontWeight={700}
+              >
+                {recipe.calorificValue} kcal
+              </Text>
+            </div>
 
-              <div className="informations_preparationTime">
-                <AccessAlarmIcon />
-                <Text
-                  as="p"
-                  color="GREY2"
-                  textAlign="left"
-                  fontSize="TEXT_DEFAULT"
-                  fontWeight={700}
-                >
-                  {recipe.preparationTime}
-                </Text>
-              </div>
+            <div className="informations_preparationTime">
+              <AccessAlarmIcon />
+              <Text
+                as="p"
+                color="GREY2"
+                textAlign="left"
+                fontSize="TEXT_DEFAULT"
+                fontWeight={700}
+              >
+                {recipe.preparationTime}
+              </Text>
             </div>
           </div>
-        </Link>
+        </li>
       ))}
     </StyledRecipesList>
   );
 };
 
 const StyledRecipesList = styled.ul`
-  max-width: 1600px;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
+  // display: flex;
+  // margin: 0 auto;
+  // padding: 10px;
+  // align-items: center;
+  // justify-items: center;
+  justify-content: center;
+  margin: auto;
   display: flex;
-  margin: 0 auto;
-  padding: 10px;
-  align-items: center;
-  justify-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 
   a {
     text-decoration: none;
@@ -98,9 +128,9 @@ const StyledRecipesList = styled.ul`
     min-width: 350px;
     min-height: 190px;
     padding: 10px;
-    margin: 0 20px;
     display: block;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: relative;
     transition: all 0.3s;
 
     &:hover {
@@ -142,5 +172,28 @@ const StyledRecipesList = styled.ul`
         }
       }
     }
+  }
+`;
+
+const StyledActionsContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 6px 10px;
+  background-color: white;
+  border-radius: 0 0 10px 0;
+
+  svg {
+    vertical-align: middle;
+  }
+
+  svg:first-of-type {
+    color: #2ecc40;
+    margin-right: 5px;
+  }
+
+  svg:last-of-type {
+    color: #ff4136;
+    margin-left: 5px;
   }
 `;

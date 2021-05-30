@@ -60,7 +60,7 @@ export const NewRecipeForm: React.FunctionComponent<NewRecipeFormProps> = ({
           title: '',
           ingredients: '',
           imageLink: '',
-          difficulty: 'latwy',
+          difficulty: 'Latwy',
           preparationTime: '',
           calorificValue: 0,
           preparingMethod: '',
@@ -150,7 +150,10 @@ export const NewRecipeForm: React.FunctionComponent<NewRecipeFormProps> = ({
                 icon={<CategoryIcon />}
                 options={recipesCategoriesOptions}
               />
-              <Button type="submit">Dodaj przepis</Button>
+              <div className="buttons_wrapper">
+                <Button type="submit">Dodaj przepis</Button>
+                <Button type="reset">Wyczyść</Button>
+              </div>
             </Form>
           </StyledForm>
         )}
@@ -182,7 +185,8 @@ const StyledForm = styled.div`
   flex-direction: column;
   background-color: ${THEME_COLORS.SECONDARY};
 
-  button {
+  .buttons_wrapper {
+    display: flex;
     margin: 25px auto 20px auto;
   }
 

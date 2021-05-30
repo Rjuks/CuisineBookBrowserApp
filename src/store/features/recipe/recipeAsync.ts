@@ -1,8 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  acceptChosenRecipeAPI,
   createRecipeAPI,
+  deleteRecipeByIDAPI,
   getAllAcceptedRecipesAPI,
-  getAllRecipesAPI
+  getAllRecipesAPI,
+  getAllRecipesByCategoryAPI,
+  getRecipeByIDAPI
 } from '../../../service/recipeAPI';
 import { Recipe } from './recipeTypes';
 import { updateUserNotification } from '../user/userSlice';
@@ -39,8 +43,20 @@ export const createAnRecipe = createAsyncThunk(
 
 export const getAllRecipes = createAsyncThunk(
   'Recipe/getAllRecipes',
-  async () => {
+  async (_, thunkAPI) => {
     const getRecipes = await getAllRecipesAPI();
+
+    if (getRecipes.data.data.succeeded === false) {
+      thunkAPI.dispatch(
+        updateUserNotification({
+          show: true,
+          message:
+            'Błąd podczas pobrania przepisów. Odśwież stronę lub skontaktuj się z administratorem',
+          title: 'Przepisy',
+          type: 'danger'
+        })
+      );
+    }
 
     return getRecipes.data.data;
   }
@@ -64,5 +80,85 @@ export const getAllAcceptedRecipes = createAsyncThunk(
     }
 
     return getAcceptedRecipes.data.data;
+  }
+);
+
+export const getRecipeByID = createAsyncThunk(
+  'Recipe/getRecipeByID',
+  async (recipeID: string, thunkAPI) => {
+    const getRecipe = await getRecipeByIDAPI(recipeID);
+
+    if (getRecipe.data.succeeded === false) {
+      thunkAPI.dispatch(
+        updateUserNotification({
+          show: true,
+          message:
+            'Błąd podczas pobrania przepisu. Odśwież stronę lub skontaktuj się z administratorem',
+          title: 'Przepisy',
+          type: 'danger'
+        })
+      );
+    }
+    return getRecipe.data.data;
+  }
+);
+
+export const deleteRecipeByID = createAsyncThunk(
+  'Recipe/deleteRecipeByID',
+  async (recipeID: string, thunkAPI) => {
+    const deleteRecipe = await deleteRecipeByIDAPI(recipeID);
+
+    if (deleteRecipe.status === 204) {
+      thunkAPI.dispatch(
+        updateUserNotification({
+          show: true,
+          message: 'Przepis',
+          title: 'Przepis został pomyślnie usunięty.',
+          type: 'info'
+        })
+      );
+    }
+    return deleteRecipe.data.data;
+  }
+);
+
+export const acceptChosenRecipe = createAsyncThunk(
+  'Recipe/deleteRecipeByID',
+  async (recipe: Recipe, thunkAPI) => {
+    const acceptRecipe = await acceptChosenRecipeAPI(recipe);
+
+    if (acceptRecipe.status === 204) {
+      thunkAPI.dispatch(
+        updateUserNotification({
+          show: true,
+          message: 'Przepis',
+          title: 'Przepis został pomyślnie zaakceptowany.',
+          type: 'info'
+        })
+      );
+    }
+
+    return acceptRecipe.data.data;
+  }
+);
+
+export const getAllRecipesByCategory = createAsyncThunk(
+  'Recipe/getAllRecipesByCategory',
+  async (category: string, thunkAPI) => {
+    const getRecipes = await getAllRecipesByCategoryAPI(category);
+
+    if (getRecipes.data.data.succeeded === false) {
+      thunkAPI.dispatch(
+        updateUserNotification({
+          show: true,
+          message:
+            'Błąd podczas pobrania przepisów. Odśwież stronę lub skontaktuj się z administratorem',
+          title: 'Przepisy',
+          type: 'danger'
+        })
+      );
+    }
+
+    return getRecipes.data.data;
   }
 );

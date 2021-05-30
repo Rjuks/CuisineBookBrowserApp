@@ -15,7 +15,7 @@ export const recipesCategories: RecipesCategoriesProps[] = [
       alt: 'Obiad',
       imgSrc: dinnerPhoto
     },
-    path: '/dinners'
+    path: 'dinner'
   },
   {
     recipeName: 'Deser',
@@ -25,7 +25,7 @@ export const recipesCategories: RecipesCategoriesProps[] = [
       alt: 'Deser',
       imgSrc: dessertPhoto
     },
-    path: '/desserts'
+    path: 'dessert'
   },
   {
     recipeName: 'Śniadanie',
@@ -35,7 +35,7 @@ export const recipesCategories: RecipesCategoriesProps[] = [
       alt: 'Śniadanie',
       imgSrc: breakfastPhoto
     },
-    path: '/breakfasts'
+    path: 'breakfast'
   },
   {
     recipeName: 'Orientalne',
@@ -45,7 +45,7 @@ export const recipesCategories: RecipesCategoriesProps[] = [
       alt: 'Danie orientalne',
       imgSrc: orientalDishPhoto
     },
-    path: '/oriental-dishes'
+    path: 'oriental'
   },
   {
     recipeName: 'Zupa',
@@ -55,17 +55,17 @@ export const recipesCategories: RecipesCategoriesProps[] = [
       alt: 'Zupa',
       imgSrc: soupPhoto
     },
-    path: '/soups'
+    path: 'soup'
   }
 ];
 
 export const recipesCategoriesOptions: DropdownOption[] = [
   { label: 'Kategoria dania', value: '' },
-  { label: 'Obiad', value: 'Obiad' },
-  { label: 'Deser', value: 'Deser' },
-  { label: 'Śniadanie', value: 'Śniadanie' },
-  { label: 'Orientalne', value: 'Orientalne' },
-  { label: 'Zupa', value: 'Zupa' }
+  { label: 'Obiad', value: 'dinner' },
+  { label: 'Deser', value: 'dessert' },
+  { label: 'Śniadanie', value: 'breakfast' },
+  { label: 'Orientalne', value: 'oriental' },
+  { label: 'Zupa', value: 'soup' }
 ];
 
 export const recipesPreparationTimeOptions: DropdownOption[] = [
@@ -86,7 +86,7 @@ export const recipesDifficultyOptions: DropdownOption[] = [
 ];
 
 export enum difficultyStars {
-  latwy = 1,
-  sredni,
-  trudny
+  Latwy = 1,
+  Średni,
+  Trudny
 }

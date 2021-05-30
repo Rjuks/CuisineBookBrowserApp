@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text } from '../shared/Text/Text';
 
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
-import { Recipe } from '../../store/features/recipe/recipeTypes';
 import { THEME_COLORS } from '../../styles/themeStyles';
+import { getRecipeByID } from '../../store/features/recipe/recipeAsync';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectChosenRecipeByID } from '../../store/features/recipe/recipeSlice';
 import { showProperNumberOfStars } from '../Recipes/utils';
 
 // interface RecipeProps {
@@ -18,27 +20,97 @@ type Props = RouteComponentProps<{ id: string }>;
 export const FullRecipeView: React.FunctionComponent<Props> = ({
   match
 }: Props) => {
-  console.log(match.params.id, 'macz');
+  const dispatch = useAppDispatch();
+  const chosenRecipe = useAppSelector(selectChosenRecipeByID);
+
+  useEffect(() => {
+    dispatch(getRecipeByID(match.params.id));
+  }, []);
+
+  const formattedRecipeCreationDate = new Date(
+    chosenRecipe.creationDate
+  ).toLocaleDateString();
 
   return (
     <StyledRecipesList>
       <div className="recipe_container">
-        {/*<img src={recipe.imageLink} alt={recipe.title} />*/}
+        <div className="recipe_container__headSection">
+          <div className="headSection_container">
+            <Text
+              as="h2"
+              color="GREY2"
+              textAlign="left"
+              fontSize="HEADER_BIG"
+              fontWeight={700}
+            >
+              {chosenRecipe.title}
+            </Text>
 
-        <Text
-          as="h3"
-          color="GREY2"
-          textAlign="left"
-          fontSize="HEADER_SMALL"
-          fontWeight={700}
-        >
-          {/*{recipe.title}*/}
-          elo
-        </Text>
+            <Text
+              as="p"
+              color="PRIMARY"
+              textAlign="left"
+              fontSize="TEXT_DEFAULT"
+              fontWeight={700}
+            >
+              {formattedRecipeCreationDate}
+            </Text>
 
-        <div className="recipe_container__informations">
-          <div className="informations_difficulty">
-            {/*{showProperNumberOfStars(recipe.difficulty)}*/}
+            <div className="headSection__informations">
+              <div className="informations_calorie">
+                <WhatshotIcon />
+                <Text
+                  as="p"
+                  color="GREY2"
+                  textAlign="left"
+                  fontSize="TEXT_DEFAULT"
+                  fontWeight={700}
+                >
+                  {chosenRecipe.calorificValue} kcal
+                </Text>
+              </div>
+
+              <div className="informations_preparationTime">
+                <AccessAlarmIcon />
+                <Text
+                  as="p"
+                  color="GREY2"
+                  textAlign="left"
+                  fontSize="TEXT_DEFAULT"
+                  fontWeight={700}
+                >
+                  {chosenRecipe.preparationTime}
+                </Text>
+              </div>
+              <div className="informations_difficulty">
+                {showProperNumberOfStars(chosenRecipe.difficulty)}
+                <Text
+                  as="p"
+                  color="GREY2"
+                  textAlign="left"
+                  fontSize="TEXT_DEFAULT"
+                  fontWeight={700}
+                >
+                  {chosenRecipe.difficulty}
+                </Text>
+              </div>
+            </div>
+          </div>
+
+          <img src={chosenRecipe.imageLink} alt={chosenRecipe.title} />
+        </div>
+
+        <div className="bodySection_container">
+          <div>
+            <Text
+              as="h3"
+              color="GREY2"
+              textAlign="left"
+              fontSize="HEADER_DEFAULT"
+              fontWeight={700}
+            >
+              Składniki
+            </Text>
             <Text
               as="p"
               color="GREY2"
@@ -46,27 +118,21 @@ export const FullRecipeView: React.FunctionComponent<Props> = ({
               fontSize="TEXT_DEFAULT"
               fontWeight={700}
             >
-              siema trudność
-              {/*{recipe.difficulty}*/}
+              {chosenRecipe.ingredients}
             </Text>
           </div>
 
-          <div className="informations_calorie">
-            <WhatshotIcon />
+          <div>
             <Text
-              as="p"
+              as="h3"
               color="GREY2"
               textAlign="left"
-              fontSize="TEXT_DEFAULT"
+              fontSize="HEADER_DEFAULT"
               fontWeight={700}
             >
-              {/*{recipe.calorificValue} */}
-              kcal
+              Sposób przygotowania
             </Text>
-          </div>
 
-          <div className="informations_preparationTime">
-            <AccessAlarmIcon />
             <Text
               as="p"
               color="GREY2"
@@ -74,8 +140,7 @@ export const FullRecipeView: React.FunctionComponent<Props> = ({
               fontSize="TEXT_DEFAULT"
               fontWeight={700}
             >
-              {/*{recipe.preparationTime}*/}
-              czas hehe
+              {chosenRecipe.preparingMethod}
             </Text>
           </div>
         </div>
@@ -85,51 +150,43 @@ export const FullRecipeView: React.FunctionComponent<Props> = ({
 };
 
 const StyledRecipesList = styled.ul`
-  max-width: 1600px;
   height: 100%;
-  display: flex;
-  margin: 0 auto;
-  padding: 10px;
-  align-items: center;
-  justify-items: center;
+  padding: 20px;
 
   a {
     text-decoration: none;
   }
 
   .recipe_container {
-    min-width: 350px;
-    min-height: 190px;
-    padding: 10px;
-    margin: 0 20px;
     display: block;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    transition: all 0.3s;
-
-    &:hover {
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      transition: all 0.3s;
-    }
-
-    h3 {
-      margin: 10px 0 15px 0;
-    }
+    height: 100%;
+    margin: 0 auto;
+    padding: 50px;
 
     img {
-      width: 350px;
-      height: 190px;
+      width: 1000px;
+      height: 500px;
       object-fit: cover;
-      transition: all 0.3s;
-
-      &:hover {
-        opacity: 0.8;
-        transition: all 0.3s;
-      }
+      margin: 0 auto;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     }
 
-    .recipe_container__informations {
+    .recipe_container__headSection {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      column-gap: 3rem;
+    }
+
+    .headSection_container {
+      // padding: 50px;
+    }
+
+    .headSection__informations {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      margin: 35px 0 0 0;
+
       .informations_difficulty,
       .informations_calorie,
       .informations_preparationTime {
@@ -142,8 +199,15 @@ const StyledRecipesList = styled.ul`
 
         svg {
           color: ${THEME_COLORS.TERTIARY};
+          width: 40px;
+          height: 40px;
         }
       }
+    }
+    .bodySection_container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
     }
   }
 `;

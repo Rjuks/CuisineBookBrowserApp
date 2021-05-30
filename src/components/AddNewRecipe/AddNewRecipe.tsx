@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Text } from '../shared/Text/Text';
-import { NewRecipeForm } from '../Recipes/NewRecipeForm/NewRecipeForm';
+import { NewRecipeForm } from './NewRecipeForm/NewRecipeForm';
 
 import { useAppDispatch } from '../../store/hooks';
 import { Recipe } from '../../store/features/recipe/recipeTypes';
@@ -19,25 +19,27 @@ export const AddNewRecipe: React.FunctionComponent = () => {
 
   return (
     <StyledNewRecipePage>
-      <Text
-        as="h1"
-        color="GREY2"
-        textAlign="center"
-        fontSize="HEADER_BIG"
-        fontWeight={700}
-      >
-        Dodaj nowy przepis
-      </Text>
-      <Text
-        as="p"
-        color="GREY2"
-        textAlign="center"
-        fontSize="TEXT_DEFAULT"
-        fontWeight={700}
-      >
-        Przepis który dodasz, musi przejść przez osobę która sprawdzi poprawność
-        przepisu :)
-      </Text>
+      <div className="newRecipe_header">
+        <Text
+          as="h1"
+          color="GREY2"
+          textAlign="center"
+          fontSize="HEADER_BIG"
+          fontWeight={700}
+        >
+          Dodaj nowy przepis
+        </Text>
+        <Text
+          as="p"
+          color="GREY2"
+          textAlign="center"
+          fontSize="TEXT_DEFAULT"
+          fontWeight={700}
+        >
+          Przepis który dodasz, musi przejść przez osobę która sprawdzi
+          poprawność przepisu :)
+        </Text>
+      </div>
       <NewRecipeForm onSubmitHandler={createRecipe} />
     </StyledNewRecipePage>
   );
@@ -46,4 +48,8 @@ export const AddNewRecipe: React.FunctionComponent = () => {
 const StyledNewRecipePage = styled.div`
   max-width: 768px;
   margin: 0 auto;
+
+  .newRecipe_header {
+    margin-bottom: 15px;
+  }
 `;

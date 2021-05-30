@@ -15,7 +15,7 @@ export const RecipesCategoriesList = ({
     <StyledRecipes>
       {recipes.length > 0 ? (
         recipes.map((recipe: RecipesCategoriesProps) => (
-          <Link key={recipe.recipeName} to={recipe.path}>
+          <Link key={recipe.recipeName} to={`/recipes/${recipe.path}`}>
             <div className="recipe_container">
               <div className="recipe_container__overlay">
                 <Text

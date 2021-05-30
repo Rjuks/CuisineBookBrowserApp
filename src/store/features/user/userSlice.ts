@@ -2,9 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { signInUser, signUpUser } from './userAsync';
 import { RootState } from '../../store';
 import { UserNotificationProps, UserStoreState } from './userTypes';
+import { getCookie } from '../../../service/cookieService';
 
 export const INITIAL_STATE: UserStoreState = {
-  isLoggedIn: false,
+  isLoggedIn: getCookie('user'),
   userNotification: {
     show: false,
     message: '',
@@ -23,7 +24,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signInUser.fulfilled, (state, action) => {
-      state.isLoggedIn = true;
+      state.isLoggedIn = getCookie('user');
       state.userNotification = {
         show: true,
         title: 'Logowanie',
@@ -32,7 +33,7 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(signInUser.rejected, (state, action) => {
-      state.isLoggedIn = false;
+      state.isLoggedIn = '';
       state.userNotification = {
         show: true,
         title: 'Logowanie',
@@ -63,7 +64,7 @@ const userSlice = createSlice({
 
 export const { updateUserNotification } = userSlice.actions;
 
-export const selectUserIsLoggedIn = (state: RootState): boolean =>
+export const selectUserIsLoggedIn = (state: RootState): string =>
   state.user.isLoggedIn;
 
 export const selectUserNotification = (

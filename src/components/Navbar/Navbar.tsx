@@ -9,16 +9,17 @@ import { navigation, submenu } from '../../consts/navigation';
 import LogoImage from '../../assets/photos/logo.jpg';
 import { Submenu } from './Submenu/Submenu';
 
-// todo set proper avatar with text
 export const Navbar: React.FunctionComponent = () => {
   const [isAvatarClicked, setIsAvatarClicked] = useState<boolean>();
 
   return (
     <StyledNavbar>
-      <Link to="/homepage">
-        <StyledLogo src={LogoImage} />
-      </Link>
-      <NavigationList navigationData={navigation} />
+      <div>
+        <Link to="/homepage">
+          <StyledLogo src={LogoImage} />
+        </Link>
+        <NavigationList navigationData={navigation} />
+      </div>
       <AccountCircle onClick={() => setIsAvatarClicked(!isAvatarClicked)} />
       {isAvatarClicked && <Submenu submenuData={submenu} />}
     </StyledNavbar>
@@ -33,6 +34,14 @@ const StyledNavbar = styled.nav`
   background-color: ${THEME_COLORS.PRIMARY};
   z-index: 5;
 
+  div {
+    display: flex;
+
+    a {
+      margin: auto;
+    }
+  }
+
   svg {
     width: 30px;
     height: 30px;
@@ -43,6 +52,11 @@ const StyledNavbar = styled.nav`
 `;
 
 export const StyledLogo = styled.img`
-  width: 45px;
-  height: 45px;
+  width: 36px;
+  height: 36px;
+  padding: 4px;
+  background-color: ${THEME_COLORS.SECONDARY};
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 25px;
 `;

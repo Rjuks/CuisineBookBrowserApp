@@ -65,7 +65,7 @@ export const LoginPage = (): ReactElement => {
           render={(innerProps: RouteProps): React.ReactElement => (
             <Redirect
               to={{
-                pathname: location.state?.from?.pathname || '/',
+                pathname: location.state?.from?.pathname || '/homepage',
                 state: { from: innerProps.location }
               }}
             />

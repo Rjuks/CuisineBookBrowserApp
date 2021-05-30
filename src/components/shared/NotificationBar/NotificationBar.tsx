@@ -54,7 +54,7 @@ const NotificationBarSlide = keyframes`
 
 const StyledNotificationBar = styled.div`
   display: block;
-  position: absolute;
+  position: fixed;
   top: 60px;
   left: 0;
   padding: 8px 15px;
