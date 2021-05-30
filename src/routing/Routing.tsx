@@ -7,6 +7,8 @@ import { LoginPage } from '../components/LoginPage/LoginPage';
 import { AddNewRecipe } from '../components/AddNewRecipe/AddNewRecipe';
 import { RecipesViewForUser } from '../components/RecipesViewForUser/RecipesViewForUser';
 import { FullRecipeView } from '../components/FullRecipeView/FullRecipeView';
+import { RecipesViewForAdmin } from '../components/RecipesViewForAdmin/RecipesViewForAdmin';
+import { RecipesByCategory } from '../components/Homepage/RecipesByCategory/RecipesByCategory';
 
 const Routing: React.FunctionComponent = () => {
   return (
@@ -14,11 +16,13 @@ const Routing: React.FunctionComponent = () => {
       <Route path="/login" exact component={LoginPage} />
       <Route path="/recipes" exact component={RecipesViewForUser} />
       <Route path="/recipes/recipe/:id" exact component={FullRecipeView} />
-      <PrivateRoute path="/homepage">
-        <Homepage />
-      </PrivateRoute>
+      <Route path="/homepage" exact component={Homepage} />
+      <Route path="/recipes/:category" exact component={RecipesByCategory} />
       <PrivateRoute path="/add-new-recipe">
         <AddNewRecipe />
+      </PrivateRoute>
+      <PrivateRoute path="/admin-panel">
+        <RecipesViewForAdmin />
       </PrivateRoute>
     </Switch>
   );

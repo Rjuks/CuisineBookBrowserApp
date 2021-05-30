@@ -4,6 +4,12 @@ import styled, { keyframes } from 'styled-components';
 
 import { NavigationListProps } from '../../../types/navigation';
 import { THEME_COLORS } from '../../../styles/themeStyles';
+import { deleteCookie } from '../../../service/cookieService';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import {
+  selectUserIsLoggedIn,
+  updateUserNotification
+} from '../../../store/features/user/userSlice';
 
 interface SubmenuProps {
   submenuData: NavigationListProps[];
@@ -11,17 +17,42 @@ interface SubmenuProps {
 
 export const Submenu: React.FunctionComponent<SubmenuProps> = ({
   submenuData
-}: SubmenuProps): JSX.Element => (
-  <>
-    <StyledSubmenu>
-      {submenuData.map((submenuItem: NavigationListProps, index: number) => (
-        <li key={`submenu_item_${index + 1}`}>
-          <Link to={submenuItem.path}>{submenuItem.name}</Link>
-        </li>
-      ))}
-    </StyledSubmenu>
-  </>
-);
+}: SubmenuProps): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const isUserLoggedIn = useAppSelector(selectUserIsLoggedIn);
+  // todo prawidłowo zapewne trzeba by było też wyczyścić wszystkie store'y (logout)
+  return (
+    <>
+      <StyledSubmenu>
+        {submenuData.map((submenuItem: NavigationListProps, index: number) => (
+          <li key={`submenu_item_${index + 1}`}>
+            <Link to={submenuItem.path}>{submenuItem.name}</Link>
+          </li>
+        ))}
+        {isUserLoggedIn && (
+          <li
+            onClick={() => {
+              deleteCookie('user');
+              setTimeout(() => {
+                window.location.reload(true);
+              }, 2000);
+              dispatch(
+                updateUserNotification({
+                  show: true,
+                  message: 'Zostałeś pomyślnie wylogowany',
+                  title: 'Wyloguj się',
+                  type: 'danger'
+                })
+              );
+            }}
+          >
+            <Link to={'/homepage'}>Wyloguj się</Link>
+          </li>
+        )}
+      </StyledSubmenu>
+    </>
+  );
+};
 
 const SlideIn = keyframes`
   0% {

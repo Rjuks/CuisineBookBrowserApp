@@ -24,7 +24,7 @@ export const RecipesViewForUser: React.FunctionComponent = () => {
       >
         Przepisy({recipesToView.length})
       </Text>
-      {recipesToView && <RecipesList recipes={recipesToView} />}
+      {recipesToView && <RecipesList recipes={recipesToView} isAdmin={false} />}
     </>
   );
 };

@@ -13,6 +13,6 @@ export interface UserNotificationProps {
 }
 
 export interface UserStoreState {
-  isLoggedIn: boolean;
+  isLoggedIn: string;
   userNotification: UserNotificationProps;
 }

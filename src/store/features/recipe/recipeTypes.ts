@@ -12,18 +12,21 @@ export interface RecipesCategoriesInterface {
 }
 
 export interface Recipe {
-  id?: number;
+  id?: string;
   title: string;
   ingredients: string;
   imageLink: string;
-  difficulty: 'latwy' | 'sredni' | 'trudny';
+  difficulty: 'Latwy' | 'Średni' | 'Trudny';
   preparationTime?: string;
   calorificValue: number;
   preparingMethod?: string;
   cathegory: string;
 }
 
+// todo check chosenreicpe types
 export interface RecipeStoreState {
   allRecipes: Recipe[];
   allAcceptedRecipes: Recipe[];
+  chosenRecipeByID: any;
+  allRecipesByCategory: any;
 }

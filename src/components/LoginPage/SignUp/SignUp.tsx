@@ -117,6 +117,7 @@ const StyledFormContainer = styled.div`
   display: block;
   padding: 20px;
   background-color: ${THEME_COLORS.PRIMARY};
+  border-radius: 0 0 20px 20px;
 
   .additional-container {
     display: flex;
