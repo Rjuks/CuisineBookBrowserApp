@@ -6,7 +6,6 @@ export const navigation = [
 ];
 
 export const submenu = [
-  { path: '/login', name: 'Zaloguj się' },
   { path: '/add-new-recipe', name: 'Dodaj przepis' },
   { path: '/calorie-calculator', name: 'Kalkulator' },
   { path: '/admin-panel', name: 'Panel admina' }

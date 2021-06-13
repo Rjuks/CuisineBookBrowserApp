@@ -21,6 +21,7 @@ export const RecipesViewForUser: React.FunctionComponent = () => {
         textAlign="center"
         fontSize="HEADER_BIG"
         fontWeight={700}
+        style={{ marginBottom: '20px' }}
       >
         Przepisy({recipesToView.length})
       </Text>

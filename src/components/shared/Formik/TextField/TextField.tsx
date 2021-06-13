@@ -24,7 +24,14 @@ export const TextField = ({
   return (
     <StyledTextFieldWrapper>
       <label htmlFor={field.name}>
-        <Text as="p" {...labelProps} />
+        <Text
+          as="p"
+          color="GREY2"
+          textAlign="center"
+          fontSize="TEXT_DEFAULT"
+          fontWeight={700}
+          {...labelProps}
+        />
       </label>
       <StyledInputWrapper>
         {getIcon}
