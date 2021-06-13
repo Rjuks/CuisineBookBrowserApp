@@ -34,7 +34,7 @@ export const StyledNavigationList = styled.ul`
   li {
     padding: 1rem 1rem;
     color: white;
-    background-color: ${THEME_COLORS.SECONDARY};
+    background-color: ${THEME_COLORS.PRIMARY};
     transition: all 0.5s ease;
 
     &:hover {

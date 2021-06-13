@@ -29,7 +29,7 @@ export const Submenu: React.FunctionComponent<SubmenuProps> = ({
             <Link to={submenuItem.path}>{submenuItem.name}</Link>
           </li>
         ))}
-        {isUserLoggedIn && (
+        {isUserLoggedIn ? (
           <li
             onClick={() => {
               deleteCookie('user');
@@ -48,6 +48,8 @@ export const Submenu: React.FunctionComponent<SubmenuProps> = ({
           >
             <Link to={'/homepage'}>Wyloguj się</Link>
           </li>
+        ) : (
+          <Link to={'/login'}>Zaloguj się</Link>
         )}
       </StyledSubmenu>
     </>
@@ -88,7 +90,7 @@ export const StyledSubmenu = styled.ul`
     padding: 5px 20px;
     line-height: var(--font-paragraph-line-height-big);
     text-decoration: none;
-    border-radius 20px;
+    border-radius 8px;
     color: #fff;
     text-shadow: none;
   }

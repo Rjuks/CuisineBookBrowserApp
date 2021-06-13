@@ -54,9 +54,6 @@ const StyledNavbar = styled.nav`
 export const StyledLogo = styled.img`
   width: 36px;
   height: 36px;
-  padding: 4px;
-  background-color: ${THEME_COLORS.SECONDARY};
-  border-radius: 50%;
   vertical-align: middle;
   margin-right: 25px;
 `;

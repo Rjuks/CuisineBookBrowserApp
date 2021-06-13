@@ -17,6 +17,17 @@ export const Footer: React.FunctionComponent = () => (
       <StyledFooterContent>
         <StyledFooterLogo src={LogoImage} />
       </StyledFooterContent>
+      <StyledFooterCopyrights>
+        <Text
+          as="span"
+          color="GREY2"
+          textAlign="center"
+          fontSize="TEXT_DEFAULT"
+          fontWeight={700}
+        >
+          Copyright © 2021 by Karol
+        </Text>
+      </StyledFooterCopyrights>
     </StyledFooterBackground>
   </StyledFooter>
 );
@@ -38,11 +49,19 @@ const StyledFooterBackground = styled.div`
 `;
 
 const StyledFooterContent = styled.div`
+  display: block;
   position: absolute;
-  left: 10%;
+  left: 6%;
   top: 65%;
   transform: translate(-65%, -10%);
-  display: flex;
+`;
+
+const StyledFooterCopyrights = styled.div`
+  display: block;
+  position: absolute;
+  left: 7%;
+  bottom: 0;
+  transform: translate(-65%, -10%);
 `;
 
 const StyledFooterLogo = styled.img`

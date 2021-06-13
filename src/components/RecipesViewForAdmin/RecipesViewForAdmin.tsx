@@ -86,10 +86,14 @@ export const RecipesViewForAdmin: React.FunctionComponent = () => {
             textAlign="center"
             fontSize="HEADER_BIG"
             fontWeight={700}
+            style={{ marginBottom: '20px' }}
           >
-            Tutaj możesz zatwierdzać/usuwać przepisy
+            Zatwierdź/usuń przepis
           </Text>
-          <Button onClick={() => setShowAllRecipes(!showAllRecipes)}>
+          <Button
+            onClick={() => setShowAllRecipes(!showAllRecipes)}
+            style={{ margin: '20px auto' }}
+          >
             {showAllRecipes
               ? 'Pokaż przepisy do zaakceptowania'
               : 'Pokaż zaakceptowane przepisy'}

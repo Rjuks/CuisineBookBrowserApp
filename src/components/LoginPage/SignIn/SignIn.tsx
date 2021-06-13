@@ -117,7 +117,7 @@ export const SignIn: React.FunctionComponent<FormTypeProps> = ({
 const StyledFormContainer = styled.div`
   display: block;
   padding: 20px;
-  background-color: ${THEME_COLORS.PRIMARY};
+  background-color: ${THEME_COLORS.SECONDARY};
   border-radius: 0 0 20px 20px;
 
   .additional-container {
@@ -135,7 +135,7 @@ const StyledFormContainer = styled.div`
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${THEME_COLORS.PRIMARY};
+  background-color: ${THEME_COLORS.SECONDARY};
 
   button {
     margin: 25px auto 20px auto;

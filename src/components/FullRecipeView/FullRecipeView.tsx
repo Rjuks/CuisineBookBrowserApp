@@ -174,7 +174,7 @@ const StyledRecipesList = styled.ul`
     .recipe_container__headSection {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 4fr;
       column-gap: 3rem;
     }
 
@@ -208,6 +208,10 @@ const StyledRecipesList = styled.ul`
       display: flex;
       justify-content: space-around;
       margin-top: 30px;
+
+      div {
+        padding: 30px;
+      }
     }
   }
 `;

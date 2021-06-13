@@ -4,13 +4,13 @@ import {
   Action,
   getDefaultMiddleware
 } from '@reduxjs/toolkit';
-import counterReducer from './features/counter/counterSlice';
 import userSlice from './features/user/userSlice';
 import recipeSlice from './features/recipe/recipeSlice';
+import calculatorSlice from './features/calculator/calculatorSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    calculator: calculatorSlice,
     user: userSlice,
     recipe: recipeSlice
   },

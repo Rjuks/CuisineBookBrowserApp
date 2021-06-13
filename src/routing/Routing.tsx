@@ -9,6 +9,7 @@ import { RecipesViewForUser } from '../components/RecipesViewForUser/RecipesView
 import { FullRecipeView } from '../components/FullRecipeView/FullRecipeView';
 import { RecipesViewForAdmin } from '../components/RecipesViewForAdmin/RecipesViewForAdmin';
 import { RecipesByCategory } from '../components/Homepage/RecipesByCategory/RecipesByCategory';
+import { Calculator } from '../components/Calculator/Calculator';
 
 const Routing: React.FunctionComponent = () => {
   return (
@@ -17,7 +18,9 @@ const Routing: React.FunctionComponent = () => {
       <Route path="/recipes" exact component={RecipesViewForUser} />
       <Route path="/recipes/recipe/:id" exact component={FullRecipeView} />
       <Route path="/homepage" exact component={Homepage} />
+      <Route path="/calorie-calculator" exact component={Calculator} />
       <Route path="/recipes/:category" exact component={RecipesByCategory} />
+      <Route path="/" exact component={Homepage} />
       <PrivateRoute path="/add-new-recipe">
         <AddNewRecipe />
       </PrivateRoute>

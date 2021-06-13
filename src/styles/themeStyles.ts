@@ -5,7 +5,10 @@ export const THEME_COLORS = {
   SECONDARY: '#ffb37d',
   TERTIARY: '#fc6e08',
   GREY1: '#292929',
-  GREY2: '#161616'
+  GREY2: '#161616',
+  LIGHTGREY: '#F0F0F0',
+  GREEN: '#2ecc40',
+  RED: '#ff4136'
 };
 
 export const getThemeColor = (color: ThemedColor): string =>

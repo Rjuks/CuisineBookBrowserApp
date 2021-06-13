@@ -188,12 +188,12 @@ const StyledActionsContainer = styled.div`
   }
 
   svg:first-of-type {
-    color: #2ecc40;
+    color: ${THEME_COLORS.GREEN};
     margin-right: 5px;
   }
 
   svg:last-of-type {
-    color: #ff4136;
+    color: ${THEME_COLORS.RED};
     margin-left: 5px;
   }
 `;

@@ -17,7 +17,7 @@ export const HomepageHero: React.FunctionComponent = () => {
 
         <div>
           <Text as="h1" textAlign="left" fontSize="HEADER_BIG" fontWeight={700}>
-            Witaj na naszej książke kucharskiej
+            Witaj na naszej książce kucharskiej
           </Text>
           <Text
             as="p"
@@ -25,8 +25,9 @@ export const HomepageHero: React.FunctionComponent = () => {
             fontSize="TEXT_DEFAULT"
             fontWeight={700}
           >
-            Znajdziesz tutaj przepisy bla bla bla.... Możesz stworzyć przepis
-            bla bla... mozesz także użyc kalkulatora którego nie ma
+            Znajdziesz tutaj przepisy z przeróżnych zakątków świata, Możesz
+            twórzyć swoje własne przepisy a także użyc kalkulatora kalorii.
+            Smacznego!
           </Text>
         </div>
       </StyledHeroContent>
